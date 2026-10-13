@@ -1,0 +1,433 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Clínica Lumina</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400;1,6..96,500&family=Manrope:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: cabeçalho fino, hero assimétrico com arco de foto à direita, lista editorial de tratamentos, declaração com revelação por scroll, avaliações em colunas, contato + rodapé com assinatura discreta. */
+:root {
+  --bg: #F6F3F8;
+  --bg-soft: #ECE7F0;
+  --fg: #1E1727;
+  --muted: #62586D;
+  --line: #D8D0DF;
+  --accent: #A12D5C;
+  --accent-ink: #FFFFFF;
+  --glow: #F3C9D8;
+  --font-display: "Bodoni Moda", "Didot", "Times New Roman", serif;
+  --font-body: "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --gutter: clamp(16px, 4vw, 56px);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #16111C; --bg-soft: #1F1828; --fg: #F2ECF5; --muted: #AFA3BC;
+    --line: #35293F; --accent: #E88BB0; --accent-ink: #1A0F18; --glow: #5A2A44;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #16111C; --bg-soft: #1F1828; --fg: #F2ECF5; --muted: #AFA3BC;
+  --line: #35293F; --accent: #E88BB0; --accent-ink: #1A0F18; --glow: #5A2A44;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg); color: var(--fg);
+  font-family: var(--font-body); font-size: 16px; line-height: 1.6;
+  padding-inline: var(--gutter); padding-block: 0;
+  overflow-x: hidden;
+}
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+.wrap { max-width: 1240px; margin-inline: auto; }
+.eyebrow { font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+h1, h2, h3 { font-family: var(--font-display); font-weight: 400; margin: 0; text-wrap: balance; letter-spacing: -.01em; }
+h1 em, h2 em { font-style: italic; color: var(--accent); }
+
+/* header */
+.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(8px); margin-inline: calc(var(--gutter) * -1); padding-inline: var(--gutter); border-bottom: 1px solid transparent; transition: border-color .3s; }
+.top.scrolled { border-bottom-color: var(--line); }
+.top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 68px; }
+.brand { font-family: var(--font-display); font-size: 26px; text-decoration: none; letter-spacing: .01em; }
+.brand span { color: var(--accent); font-style: italic; }
+nav { display: flex; gap: 28px; align-items: center; }
+nav a.link { text-decoration: none; font-size: 14px; font-weight: 500; color: var(--muted); transition: color .2s; }
+nav a.link:hover { color: var(--fg); }
+.btn { display: inline-flex; align-items: center; gap: 10px; background: var(--accent); color: var(--accent-ink); text-decoration: none; font-weight: 600; font-size: 14px; padding: 13px 22px; border-radius: 999px; min-height: 44px; transition: transform .25s cubic-bezier(.2,.7,.2,1), box-shadow .25s; will-change: transform; }
+.btn:hover { box-shadow: 0 10px 28px -12px var(--accent); }
+.btn.ghost { background: transparent; color: var(--fg); border: 1px solid var(--line); }
+.btn.ghost:hover { border-color: var(--fg); box-shadow: none; }
+@media (max-width: 720px) { nav a.link { display: none; } }
+
+/* hero */
+.hero { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); gap: clamp(24px, 5vw, 72px); align-items: center; padding-block: clamp(40px, 8vw, 96px) clamp(56px, 8vw, 110px); }
+.hero h1 { font-size: clamp(44px, 7.4vw, 104px); line-height: .98; margin-block: 20px 24px; }
+.hero p.lead { font-size: clamp(17px, 1.6vw, 20px); color: var(--muted); max-width: 46ch; margin: 0 0 32px; }
+.cta-row { display: flex; flex-wrap: wrap; gap: 12px; }
+.hero-meta { display: flex; flex-wrap: wrap; gap: 8px 28px; margin-top: 44px; padding-top: 22px; border-top: 1px solid var(--line); font-size: 14px; color: var(--muted); }
+.hero-meta b { color: var(--fg); font-weight: 600; }
+.stage { position: relative; aspect-ratio: 4 / 5.2; max-width: 100%; }
+.arch { position: absolute; inset: 0; border-radius: 999px 999px 18px 18px; overflow: hidden; background: var(--bg-soft); border: 1px solid var(--line); }
+.arch .layer { position: absolute; will-change: transform; }
+.arch .hero-img { left: 0; top: -10%; width: 100%; height: 120%; object-fit: cover; object-position: 50% 55%; }
+.ring-deco { position: absolute; right: -7%; top: 6%; width: 46%; aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle, var(--glow) 0%, transparent 70%); will-change: transform; pointer-events: none; }
+.gallery { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: clamp(10px, 1.6vw, 20px); }
+.shot { margin: 0; position: relative; overflow: hidden; background: var(--bg-soft); border-radius: 4px; }
+.shot img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform .8s cubic-bezier(.2,.7,.2,1); }
+.shot:hover img { transform: scale(1.04); }
+.shot figcaption { position: absolute; left: 12px; bottom: 10px; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; font-weight: 600; color: #fff; text-shadow: 0 1px 8px rgba(0,0,0,.55); }
+.g1 { grid-column: span 7; aspect-ratio: 16 / 11; }
+.g2 { grid-column: span 5; aspect-ratio: 4 / 5; }
+.g3 { grid-column: span 5; aspect-ratio: 4 / 5; }
+.g4 { grid-column: span 7; aspect-ratio: 16 / 11; }
+.team { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: clamp(20px, 5vw, 72px); align-items: center; margin-top: clamp(40px, 6vw, 88px); }
+.team .shot { aspect-ratio: 4 / 5; }
+.team h3 { font-size: clamp(28px, 3.6vw, 48px); line-height: 1.1; margin-bottom: 16px; }
+.team p { color: var(--muted); max-width: 48ch; margin: 0 0 24px; }
+.ba { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(10px, 1.6vw, 20px); }
+.ba .shot { aspect-ratio: 3 / 4; }
+.ba .shot img { object-position: 50% 30%; }
+.ba-note { margin: 16px 0 0; font-size: 13px; color: var(--muted); }
+@media (max-width: 760px) {
+  .g1, .g4 { grid-column: span 12; }
+  .g2, .g3 { grid-column: span 6; }
+  .team { grid-template-columns: 1fr; }
+  .ba { grid-template-columns: 1fr 1fr; }
+}
+.badge { position: absolute; left: -6%; bottom: 10%; background: var(--bg); border: 1px solid var(--line); border-radius: 14px; padding: 14px 18px; display: grid; gap: 2px; box-shadow: 0 18px 40px -26px var(--fg); will-change: transform; }
+.badge .n { font-family: var(--font-display); font-size: 38px; line-height: 1; }
+.badge .s { color: var(--accent); letter-spacing: 2px; font-size: 13px; }
+.badge .t { font-size: 12px; color: var(--muted); }
+@media (max-width: 860px) {
+  .hero { grid-template-columns: 1fr; }
+  .stage { max-width: 420px; margin-inline: auto; width: 100%; }
+  .badge { left: 4%; }
+}
+
+/* tratamentos */
+section { padding-block: clamp(56px, 9vw, 120px); }
+.sec-head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: 24px 48px; margin-bottom: clamp(28px, 4vw, 56px); align-items: end; }
+.sec-head h2 { font-size: clamp(34px, 5vw, 64px); line-height: 1.04; }
+.sec-head p { margin: 0; color: var(--muted); max-width: 52ch; }
+@media (max-width: 760px) { .sec-head { grid-template-columns: 1fr; } }
+.rows { border-top: 1px solid var(--line); list-style: none; margin: 0; padding: 0; }
+.row { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.3fr) auto; gap: 12px 40px; align-items: baseline; padding-block: 28px; border-bottom: 1px solid var(--line); text-decoration: none; position: relative; transition: padding .35s cubic-bezier(.2,.7,.2,1), color .2s; }
+.row h3 { font-size: clamp(26px, 3.4vw, 44px); line-height: 1.1; transition: color .2s, transform .35s cubic-bezier(.2,.7,.2,1); }
+.row p { margin: 0; color: var(--muted); max-width: 54ch; }
+.row .go { font-size: 22px; transition: transform .35s cubic-bezier(.2,.7,.2,1); color: var(--accent); }
+.row:hover h3 { color: var(--accent); transform: translateX(10px); }
+.row:hover .go { transform: translateX(6px); }
+@media (max-width: 760px) { .row { grid-template-columns: 1fr auto; } .row p { grid-column: 1 / -1; } }
+
+/* declaração */
+.statement { background: var(--bg-soft); margin-inline: calc(var(--gutter) * -1); padding-inline: var(--gutter); }
+.statement .wrap { min-height: 60vh; display: grid; align-content: center; gap: 28px; }
+.statement .big { font-family: var(--font-display); font-size: clamp(32px, 5.6vw, 76px); line-height: 1.1; max-width: 20ch; }
+.statement .big .w { opacity: .18; transition: none; }
+.statement .tags { display: flex; flex-wrap: wrap; gap: 8px 24px; font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+
+/* avaliações */
+.reviews { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; border-top: 1px solid var(--line); }
+.rev { padding: 32px 28px 32px 0; border-bottom: 1px solid var(--line); display: grid; gap: 18px; align-content: start; }
+.rev + .rev { padding-left: 28px; border-left: 1px solid var(--line); }
+.rev q { font-family: var(--font-display); font-size: clamp(20px, 2vw, 26px); line-height: 1.3; quotes: "“" "”"; }
+.rev cite { font-style: normal; font-size: 13px; color: var(--muted); }
+.rev cite b { color: var(--fg); font-weight: 600; }
+@media (max-width: 860px) { .reviews { grid-template-columns: 1fr; } .rev, .rev + .rev { padding: 28px 0; border-left: 0; } }
+.src { margin-top: 18px; font-size: 13px; color: var(--muted); }
+
+/* contato */
+.contact { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 40px 64px; align-items: start; }
+.contact h2 { font-size: clamp(38px, 6vw, 84px); line-height: 1; margin-bottom: 26px; }
+.contact dl { margin: 0; display: grid; gap: 0; }
+.contact dl > div { display: grid; grid-template-columns: 110px minmax(0, 1fr); gap: 16px; padding-block: 18px; border-bottom: 1px solid var(--line); }
+.contact dl > div:first-child { border-top: 1px solid var(--line); }
+.contact dt { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); font-weight: 600; padding-top: 3px; }
+.contact dd { margin: 0; overflow-wrap: anywhere; }
+.contact dd a { text-underline-offset: 3px; }
+.copy { margin-left: 10px; font: inherit; font-size: 12px; background: none; border: 1px solid var(--line); color: var(--muted); border-radius: 999px; padding: 4px 12px; cursor: pointer; min-height: 28px; }
+.copy:hover { color: var(--fg); border-color: var(--fg); }
+.pill { display: inline-block; font-size: 12px; border: 1px solid var(--line); border-radius: 999px; padding: 3px 12px; color: var(--muted); margin: 0 6px 6px 0; }
+@media (max-width: 860px) { .contact { grid-template-columns: 1fr; } .contact dl > div { grid-template-columns: 1fr; gap: 4px; } }
+
+footer { border-top: 1px solid var(--line); padding-block: 28px calc(28px + env(safe-area-inset-bottom, 0px)); font-size: 13px; color: var(--muted); }
+footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px 24px; }
+.credit { font-size: 11px; opacity: .8; }
+
+/* cursor (somente mouse) */
+.cur-dot, .cur-ring { position: fixed; left: 0; top: 0; pointer-events: none; z-index: 100; display: none; }
+.has-cursor .cur-dot, .has-cursor .cur-ring { display: block; }
+.cur-dot { width: 6px; height: 6px; margin: -3px 0 0 -3px; border-radius: 50%; background: var(--accent); }
+.cur-ring { width: 38px; height: 38px; margin: -19px 0 0 -19px; border-radius: 50%; border: 1px solid var(--accent); display: none; align-items: center; justify-content: center; font-size: 10px; letter-spacing: .14em; font-weight: 700; color: var(--accent-ink); transition: width .25s, height .25s, margin .25s, background .25s, border-color .25s; }
+.has-cursor .cur-ring { display: flex; }
+.cur-ring.is-link { width: 62px; height: 62px; margin: -31px 0 0 -31px; background: color-mix(in srgb, var(--accent) 16%, transparent); }
+.cur-ring.is-view { width: 84px; height: 84px; margin: -42px 0 0 -42px; background: var(--accent); }
+.cur-ring span { opacity: 0; transition: opacity .2s; }
+.cur-ring.is-view span { opacity: 1; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .statement .big .w { opacity: 1; } }
+</style>
+
+<header class="top" id="top">
+  <div class="wrap">
+    <a class="brand" href="#inicio" aria-label="Clínica Lumina, início">Lumina<span>.</span></a>
+    <nav aria-label="Principal">
+      <a class="link" href="#tratamentos">Tratamentos</a>
+      <a class="link" href="#clinica">A clínica</a>
+      <a class="link" href="#avaliacoes">Avaliações</a>
+      <a class="link" href="#contato">Contato</a>
+      <a class="btn" data-magnet href="https://wa.me/5537999172049?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20avalia%C3%A7%C3%A3o." target="_blank" rel="noopener">Agendar</a>
+    </nav>
+  </div>
+</header>
+
+<main id="inicio">
+  <div class="wrap hero">
+    <div>
+      <div class="eyebrow" data-in>Clínica de estética · Divinópolis, MG</div>
+      <h1 data-in>Realce a sua <em>melhor luz.</em></h1>
+      <p class="lead" data-in>Depilação a laser, botox e preenchimento labial com atendimento humanizado e equipe qualificada, no centro de Divinópolis.</p>
+      <div class="cta-row" data-in>
+        <a class="btn" data-magnet href="https://wa.me/5537999172049?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20avalia%C3%A7%C3%A3o." target="_blank" rel="noopener">Agendar avaliação pelo WhatsApp</a>
+        <a class="btn ghost" data-magnet href="#tratamentos">Ver tratamentos</a>
+      </div>
+      <div class="hero-meta" data-in>
+        <span><b>5,0</b> no Google · 120 avaliações</span>
+        <span>R. Pernambuco, 559 · Centro</span>
+      </div>
+    </div>
+    <div class="stage">
+      <div class="ring-deco" aria-hidden="true" data-speed="-0.06"></div>
+      <div class="arch">
+        <img class="layer hero-img" data-speed="0.05" src="img2/foto1.jpg" alt="Recepção da Clínica Lumina com balcão claro e letreiro dourado na parede" width="1104" height="930" fetchpriority="high">
+      </div>
+      <div class="badge" data-speed="-0.1">
+        <span class="n">5,0</span>
+        <span class="s" aria-hidden="true">★★★★★</span>
+        <span class="t">120 avaliações no Google</span>
+      </div>
+    </div>
+  </div>
+
+  <section id="tratamentos" class="wrap">
+    <div class="sec-head">
+      <div>
+        <div class="eyebrow">Tratamentos</div>
+        <h2>Cuidado com <em>critério</em>, do primeiro contato ao resultado.</h2>
+      </div>
+      <p>Procedimentos feitos por profissional qualificada, com conforto em cada etapa. Fale com a equipe para entender qual combina com você.</p>
+    </div>
+    <ul class="rows">
+      <li><a class="row" data-view href="https://wa.me/5537999172049?text=Ol%C3%A1!%20Quero%20saber%20mais%20sobre%20depila%C3%A7%C3%A3o%20a%20laser." target="_blank" rel="noopener">
+        <h3>Depilação a laser</h3>
+        <p>Tratamento de depilação a laser, a especialidade da clínica. Agende uma avaliação para conhecer o protocolo indicado.</p>
+        <span class="go" aria-hidden="true">→</span></a></li>
+      <li><a class="row" data-view href="https://wa.me/5537999172049?text=Ol%C3%A1!%20Quero%20saber%20mais%20sobre%20botox." target="_blank" rel="noopener">
+        <h3>Botox</h3>
+        <p>Um dos procedimentos mais citados nas avaliações das clientes, feito com acompanhamento próximo da equipe.</p>
+        <span class="go" aria-hidden="true">→</span></a></li>
+      <li><a class="row" data-view href="https://wa.me/5537999172049?text=Ol%C3%A1!%20Quero%20saber%20mais%20sobre%20preenchimento%20labial." target="_blank" rel="noopener">
+        <h3>Preenchimento labial</h3>
+        <p>Ácido hialurônico para devolver contorno, hidratação e volume, com anestesia local e profissional qualificada.</p>
+        <span class="go" aria-hidden="true">→</span></a></li>
+      <li><a class="row" data-view href="https://wa.me/5537999172049?text=Ol%C3%A1!%20Gostaria%20de%20conhecer%20os%20outros%20tratamentos%20da%20cl%C3%ADnica." target="_blank" rel="noopener">
+        <h3>Outros tratamentos</h3>
+        <p>A clínica realiza outros procedimentos estéticos. Pergunte à equipe pelo WhatsApp.</p>
+        <span class="go" aria-hidden="true">→</span></a></li>
+    </ul>
+  </section>
+
+  <section class="statement" aria-labelledby="decl">
+    <div class="wrap">
+      <div class="eyebrow">O espaço</div>
+      <p class="big" id="decl" data-words>Mais do que um espaço, um ambiente onde você se sente em casa.</p>
+      <div class="tags">
+        <span>Atendimento humanizado</span><span>Equipe acolhedora</span><span>Empresa de empreendedoras</span><span>Acolhe a comunidade LGBTQ+</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="clinica" class="wrap">
+    <div class="sec-head">
+      <div>
+        <div class="eyebrow">A clínica</div>
+        <h2>Um ambiente claro, <em>calmo</em> e pensado para o seu conforto.</h2>
+      </div>
+      <p>Recepção e salas de atendimento no 4º andar, no centro de Divinópolis.</p>
+    </div>
+    <div class="gallery">
+      <figure class="shot g1" data-view><img src="img2/foto1.jpg" alt="Recepção da Clínica Lumina com letreiro dourado" loading="lazy" width="1104" height="930"><figcaption>Recepção</figcaption></figure>
+      <figure class="shot g2" data-view><img src="img2/foto2.jpg" alt="Sala de atendimento com prateleiras douradas, bancada e equipamento" loading="lazy" width="1098" height="780"><figcaption>Sala de atendimento</figcaption></figure>
+      <figure class="shot g3" data-view><img src="img2/foto3.jpg" alt="Sala com maca e janela ampla com persianas" loading="lazy" width="1116" height="939"><figcaption>Sala de procedimentos</figcaption></figure>
+      <figure class="shot g4" data-view><img src="img2/foto4.jpg" alt="Cliente sorrindo diante do letreiro da Clínica Lumina" loading="lazy" width="1110" height="1881" style="object-position:50% 38%"><figcaption>Boas-vindas</figcaption></figure>
+    </div>
+    <div class="team">
+      <figure class="shot" data-view><img src="img2/foto8.jpg" alt="Equipe da Clínica Lumina diante do letreiro dourado da recepção" loading="lazy" width="1116" height="1404"><figcaption>Equipe Lumina</figcaption></figure>
+      <div>
+        <div class="eyebrow">Equipe</div>
+        <h3>Profissionais que acolhem antes de tratar.</h3>
+        <p>Nas avaliações, as clientes destacam o atendimento humanizado e a atenção de toda a equipe, do primeiro contato ao pós-procedimento.</p>
+        <a class="btn ghost" data-magnet href="https://wa.me/5537999172049?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20avalia%C3%A7%C3%A3o." target="_blank" rel="noopener">Conhecer a equipe</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="resultados" class="wrap">
+    <div class="sec-head">
+      <div>
+        <div class="eyebrow">Resultados</div>
+        <h2>Antes e <em>depois</em> de clientes da clínica.</h2>
+      </div>
+      <p>Registros reais de atendimentos. Cada caso é diferente: o resultado depende da avaliação individual.</p>
+    </div>
+    <div class="ba">
+      <figure class="shot" data-view><img src="img2/foto5.jpg" alt="Antes e depois: rosto e couro cabeludo de uma cliente" loading="lazy" width="1110" height="1881"><figcaption>Rosto e couro cabeludo</figcaption></figure>
+      <figure class="shot" data-view><img src="img2/foto6.jpg" alt="Antes e depois: pernas de uma cliente" loading="lazy" width="1116" height="1401"><figcaption>Pernas</figcaption></figure>
+      <figure class="shot" data-view><img src="img2/foto7.jpg" alt="Antes e depois: testa de uma cliente" loading="lazy" width="1119" height="1446"><figcaption>Testa</figcaption></figure>
+    </div>
+    <p class="ba-note">Imagens publicadas com a marca da clínica. Resultados individuais podem variar.</p>
+  </section>
+
+  <section id="avaliacoes" class="wrap">
+    <div class="sec-head">
+      <div>
+        <div class="eyebrow">Avaliações</div>
+        <h2>Quem já passou por aqui <em>conta</em>.</h2>
+      </div>
+      <p>Nota 5,0 em 120 avaliações no Google. Estes são relatos publicados por clientes.</p>
+    </div>
+    <div class="reviews">
+      <figure class="rev" style="margin:0">
+        <q>Imensamente satisfeita com o tratamento que realizei e com os demais serviços ofertados na clínica.</q>
+        <cite><b>Alessandra Tavares</b> · avaliação no Google</cite>
+      </figure>
+      <figure class="rev" style="margin:0">
+        <q>Clínica excelente, atendimento acolhedor, profissionais atenciosas e tudo muito organizado.</q>
+        <cite><b>Francy Elly Fran</b> · avaliação no Google</cite>
+      </figure>
+      <figure class="rev" style="margin:0">
+        <q>Amo ir na clínica, as meninas são muito receptivas e carismáticas.</q>
+        <cite><b>Brenda Silva</b> · avaliação no Google</cite>
+      </figure>
+    </div>
+    <p class="src">Trechos de avaliações públicas no Google Maps.</p>
+  </section>
+
+  <section id="contato" class="wrap">
+    <div class="contact">
+      <div>
+        <div class="eyebrow">Contato</div>
+        <h2>Vamos <em>conversar</em> sobre o seu cuidado.</h2>
+        <a class="btn" data-magnet href="https://wa.me/5537999172049?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20avalia%C3%A7%C3%A3o." target="_blank" rel="noopener">Agendar pelo WhatsApp</a>
+      </div>
+      <dl>
+        <div><dt>WhatsApp</dt><dd><span id="tel">(37) 99917-2049</span><button class="copy" type="button" id="copy-tel">Copiar</button></dd></div>
+        <div><dt>Endereço</dt><dd>R. Pernambuco, 559, Sala 403, 4º andar<br>Centro, Divinópolis – MG, 35500-008<br><a href="https://www.google.com/maps/search/?api=1&query=Cl%C3%ADnica+de+Est%C3%A9tica+Lumina+Divin%C3%B3polis" target="_blank" rel="noopener">Abrir no Google Maps</a></dd></div>
+        <div><dt>Horário</dt><dd>No Google Maps, a clínica aparece aberta e com fechamento às 19h. Confirme o horário do dia pelo WhatsApp.</dd></div>
+        <div><dt>Ambiente</dt><dd><span class="pill">Empresa de empreendedoras</span><span class="pill">Acolhe a comunidade LGBTQ+</span></dd></div>
+      </dl>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Clínica de Estética Lumina · Divinópolis, MG</span>
+    <span class="credit">Desenvolvido por ADS — Agência Digital &amp; Sites</span>
+  </div>
+</footer>
+
+<div class="cur-dot" aria-hidden="true"></div>
+<div class="cur-ring" aria-hidden="true"><span>VER</span></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+(function () {
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+  var topBar = document.getElementById("top");
+
+  // header com linha ao rolar
+  var onScroll = function () { topBar.classList.toggle("scrolled", window.scrollY > 8); };
+  window.addEventListener("scroll", onScroll, { passive: true }); onScroll();
+
+  // copiar telefone
+  var copyBtn = document.getElementById("copy-tel");
+  copyBtn.addEventListener("click", function () {
+    var tel = document.getElementById("tel");
+    var done = function () { copyBtn.textContent = "Copiado"; setTimeout(function () { copyBtn.textContent = "Copiar"; }, 1600); };
+    var fallback = function () {
+      var r = document.createRange(); r.selectNodeContents(tel);
+      var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+    };
+    try { navigator.clipboard.writeText("(37) 99917-2049").then(done, fallback); } catch (e) { fallback(); }
+  });
+
+  // divide a declaração em palavras
+  var big = document.querySelector("[data-words]");
+  var words = big.textContent.trim().split(/\s+/);
+  big.setAttribute("aria-label", big.textContent.trim());
+  big.innerHTML = words.map(function (w) { return '<span class="w" aria-hidden="true">' + w + "</span>"; }).join(" ");
+
+  if (reduce || !window.gsap || !window.ScrollTrigger) {
+    document.querySelectorAll(".w").forEach(function (w) { w.style.opacity = 1; });
+    return;
+  }
+  gsap.registerPlugin(ScrollTrigger);
+
+  // entrada do hero
+  gsap.from("[data-in]", { y: 28, opacity: 0, duration: .9, ease: "power3.out", stagger: .1, immediateRender: false, delay: .1 });
+
+  var mm = gsap.matchMedia();
+  mm.add("(min-width: 861px)", function () {
+    // parallax em camadas no hero
+    document.querySelectorAll("[data-speed]").forEach(function (el) {
+      var sp = parseFloat(el.dataset.speed);
+      gsap.to(el, { y: function () { return sp * 600; }, ease: "none",
+        scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: .6 } });
+    });
+    // declaração fixa enquanto as palavras acendem
+    gsap.to(".statement .w", { opacity: 1, stagger: .12, ease: "none",
+      scrollTrigger: { trigger: ".statement", start: "top top", end: "+=90%", scrub: .5, pin: true } });
+  });
+  mm.add("(max-width: 860px)", function () {
+    gsap.to(".statement .w", { opacity: 1, stagger: .12, ease: "none",
+      scrollTrigger: { trigger: ".statement .big", start: "top 85%", end: "bottom 45%", scrub: .5 } });
+  });
+
+  // revelação das linhas e avaliações
+  gsap.utils.toArray(".row, .rev, .shot").forEach(function (el) {
+    gsap.from(el, { y: 26, opacity: 0, duration: .8, ease: "power3.out", immediateRender: false,
+      scrollTrigger: { trigger: el, start: "top 90%", once: true } });
+  });
+
+  // cursor e botões magnéticos (só com mouse)
+  if (finePointer) {
+    document.documentElement.classList.add("has-cursor");
+    var dot = document.querySelector(".cur-dot"), ring = document.querySelector(".cur-ring");
+    var mx = innerWidth / 2, my = innerHeight / 2;
+    var dx = gsap.quickSetter(dot, "x", "px"), dy = gsap.quickSetter(dot, "y", "px");
+    var rx = gsap.quickTo(ring, "x", { duration: .45, ease: "power3.out" });
+    var ry = gsap.quickTo(ring, "y", { duration: .45, ease: "power3.out" });
+    window.addEventListener("mousemove", function (e) { dx(e.clientX); dy(e.clientY); rx(e.clientX); ry(e.clientY); }, { passive: true });
+    var setState = function (cls) { ring.classList.remove("is-link", "is-view"); if (cls) ring.classList.add(cls); };
+    document.querySelectorAll("a, button, [data-view]").forEach(function (el) {
+      var cls = el.hasAttribute("data-view") ? "is-view" : "is-link";
+      el.addEventListener("mouseenter", function () { setState(cls); });
+      el.addEventListener("mouseleave", function () { setState(null); });
+    });
+    document.querySelectorAll("[data-magnet]").forEach(function (el) {
+      var qx = gsap.quickTo(el, "x", { duration: .4, ease: "power3.out" });
+      var qy = gsap.quickTo(el, "y", { duration: .4, ease: "power3.out" });
+      el.addEventListener("mousemove", function (e) {
+        var b = el.getBoundingClientRect();
+        qx((e.clientX - b.left - b.width / 2) * .25); qy((e.clientY - b.top - b.height / 2) * .35);
+      });
+      el.addEventListener("mouseleave", function () { qx(0); qy(0); });
+    });
+  }
+})();
+</script>
+
+</body></html>
